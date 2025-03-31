@@ -54,21 +54,15 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Lancement avec Docker
-
-To start a local server with Docker, run:
-
-```bash
-docker build -t mon-app-angular .
-```
-Then : 
-```bash
-docker run -d -p 8080:80 mon-app-angular
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:8080`.
-
 
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## DOCKER
+Build l'image pour la production : ``ng build --configuration=production``
+
+Ensuite, créer l'image docker : ``docker build -t ghcr.io/univ-smb-m1-isc-2025/messalonsdecoiffure-web:main .``
+
+Puis lancer l'appli : ``docker run -d -p 8080:80 --name front-hairlab-container ghcr.io/univ-smb-m1-isc-2025/messalonsdecoiffure-web:main``
+
