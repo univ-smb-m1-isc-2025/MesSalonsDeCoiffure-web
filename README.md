@@ -60,9 +60,18 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 ## DOCKER
-Build l'image pour la production : ``ng build --configuration=production``
+Build l'image pour la production : 
+```bash
+ng build --configuration=production
+```
 
-Ensuite, créer l'image docker : ``docker build -t ghcr.io/univ-smb-m1-isc-2025/messalonsdecoiffure-web:main .``
+Ensuite, créer l'image docker : 
+```bash
+docker build -t ghcr.io/univ-smb-m1-isc-2025/messalonsdecoiffure-web:main .
+```
 
-Puis lancer l'appli : ``docker run -d -p 8080:80 --name front-hairlab-container ghcr.io/univ-smb-m1-isc-2025/messalonsdecoiffure-web:main``
+Puis lancer l'appli :
+```bash
+docker run -d -p 8080:80 --name front-hairlab-container ghcr.io/univ-smb-m1-isc-2025/messalonsdecoiffure-web:main
+```
 
