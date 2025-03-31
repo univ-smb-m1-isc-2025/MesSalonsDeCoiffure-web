@@ -7,7 +7,7 @@ import {map, Observable, tap} from 'rxjs';
   providedIn: 'root'
 })
 export class UsersService {
-  private BASE_URL = 'http://localhost:8080';
+  private BASE_URL = 'https://api.hairlab.oups.net';
 
 
   constructor(private http: HttpClient) { }
