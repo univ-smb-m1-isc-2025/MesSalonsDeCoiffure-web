@@ -1,1 +1,63 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+  --primary-color: #F7F7F7;
+  --secondary-color: #FFFFFF;
+  --background-color: #f8f9fa;
+  --text-color-black: #202020;
+  --text-color-grey: #202020;
+  --text-color-white: #EFFFFF;
+  --background-bouton-black: #000000;
+  --background-bouton-grey: #C7CFD7;
+  --background-bouton-grey_white: #F7F7F7 ;
+  --background-bouton-white: #EEF0F2;
+
+  /* Polices */
+  --primary-font: 'Inter', sans-serif;
+
+  --font-thin: 100;
+  --font-extra-light: 200;
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+  --font-bold: 700;
+  --font-extra-bold: 800;
+  --font-black: 900;
+
+  --letter-spacing-xs: -0.5px; /* Réduit l'espacement */
+  --letter-spacing-sm: 0px; /* Normal */
+  --letter-spacing-md: 0.5px;
+  --letter-spacing-lg: 1px;
+  --letter-spacing-xl: 2px;
+  --letter-spacing-wide: 3px;
+
+  /* Tailles de texte */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+
+  /* Marges et espacements */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 70px;
+  --spacing-xxxl: 125px;
+
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 32px;
+
+  --size-button-s: 5em;
+  --size-button-m: 10em;
+  --size-button-xl: 30em;
+
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
