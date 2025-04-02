@@ -1,0 +1,13 @@
+main{
+ height: 92%;
+}
+
+app-nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Assure que la navbar reste au-dessus des autres éléments */
+  background-color: white; /* Ajoute une couleur de fond pour éviter la transparence */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour distinguer la navbar */
+}

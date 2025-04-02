@@ -1,0 +1,8 @@
+#rowEtab{
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-md);
+}

@@ -2,7 +2,7 @@
   display: flex;
   background: var(--background-bouton-grey_white);
   width: 100%;
-  height: 90vh;
+  height: 100%;
 }
 
 #cardMain{
@@ -30,8 +30,30 @@ button{
   color: var(--text-color-white);
   font-size: var(--text-sm);
   font-weight: var(--font-semi-bold);
+  cursor: pointer;
+  margin-top: var(--spacing-sm);
 }
 
+button:hover{
+  background: var(--background-bouton-grey_white);
+  color: var(--text-color-black);
+}
+
+#ButCreateUser{
+  border-radius: var(--border-radius-md);
+  width: var(--size-button-xl);
+  padding: var(--spacing-md) var(--spacing-md);
+  background: var(--background-bouton-white);
+  color: var(--text-color-black);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semi-bold);
+  cursor: pointer;
+}
+
+#ButCreateUser:hover{
+  background: var(--background-bouton-grey_white);
+  color: var(--text-color-black);
+}
 span{
   color: var(--text-color-black);
   font-size: var(--text-sm);
@@ -51,6 +73,7 @@ input{
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   text-decoration: underline;
+  cursor: pointer;
 }
 
 form{
@@ -65,7 +88,7 @@ form{
 }
 
 img{
-  max-width: 50%;
+  max-width: 40%;
 }
 
 #cardLogin{
@@ -76,4 +99,11 @@ img{
 h2 {
   font-size: var(--text-lg);
   font-weight: var(--font-medium);
+}
+
+
+hr.solid {
+  border-top: 2px solid #bbb;
+  width: 50%;
+  margin-top: var(--spacing-xl);
 }

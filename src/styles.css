@@ -12,6 +12,8 @@
   --background-bouton-grey_white: #F7F7F7 ;
   --background-bouton-white: #EEF0F2;
 
+  --color-shadow: #d5d5d5;
+
   /* Polices */
   --primary-font: 'Inter', sans-serif;
 
@@ -38,6 +40,7 @@
   --text-md: 16px;
   --text-lg: 20px;
   --text-xl: 24px;
+  --text-xxl: 38px;
 
   /* Marges et espacements */
   --spacing-xs: 4px;

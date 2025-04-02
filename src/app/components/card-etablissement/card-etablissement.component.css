@@ -1,0 +1,31 @@
+.card{
+  width: 24em;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border: 0px solid black;
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+  box-shadow: var(--color-shadow) 0 1px 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) { /* Taille d'écran pour mobile */
+  .card {
+    width: 12em;
+  }
+}
+
+ .card > p {
+   margin: var(--spacing-md) var(--spacing-md);
+   padding: 0;
+   font-weight: var(--font-regular);
+   letter-spacing: var(--letter-spacing-sm);
+   font-size: var(--text-lg);
+ }
+
+img{
+  width: auto;
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+}
+
+
