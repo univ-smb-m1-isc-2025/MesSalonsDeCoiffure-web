@@ -1,14 +1,25 @@
-<h2>Liste des utilisateurs</h2>
-<ul>
-  <li *ngFor="let u of userList">
-    {{ u.firstName }} {{ u.lastName }} - {{ u.email }}
-  </li>
-</ul>
+<div id="content">
+  <div id="cardMain">
+    <div class="cardLogin">
+      <h2>Vous avez déjà utilisé HairLab ?</h2>
 
-<h2>Ajouter un utilisateur</h2>
-<form (ngSubmit)="addUser(newUser)">
-  <input type="text" [(ngModel)]="newUser.firstName" name="firstName" placeholder="Prénom" required />
-  <input type="text" [(ngModel)]="newUser.lastName" name="lastName" placeholder="Nom" required />
-  <input type="email" [(ngModel)]="newUser.email" name="email" placeholder="Email" required />
-  <button type="submit">Ajouter</button>
-</form>
+      <form (ngSubmit)="addUser(newUser)">
+        <span>Email *</span>
+      <input type="email" [(ngModel)]="newUser.email" name="email" placeholder="Email" required />
+      <span>Mot de passe *</span>
+      <input type="password" [(ngModel)]="newUser.firstName" name="firstName" placeholder="Prénom" required />
+      <p id="pswforget">Mot de passe oublié ?</p>
+      <button type="submit">Se connecter</button>
+    </form>
+  </div>
+    <div class="cardLogin">
+      <p>ou</p>
+      <h2>Nouveau sur HairLab ?</h2>
+    <button id="ButCreateUser">Créer mon compte</button>
+</div>
+  </div>
+  <img src="https://res.cloudinary.com/planity/image/upload/q_auto,f_auto/v1701340648/portail/illustrations/LOGIN/2023/2.jpg">
+</div>
+
+
+

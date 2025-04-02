@@ -8,7 +8,6 @@ import {NgForOf} from '@angular/common';
   selector: 'app-users',
   imports: [
     FormsModule,
-    NgForOf
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
