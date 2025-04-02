@@ -7,7 +7,6 @@ import {RowEtablissementComponent} from '../../components/row-etablissement/row-
   selector: 'app-accueil',
   imports: [
     ReactiveFormsModule,
-    CardEtablissementComponent,
     RowEtablissementComponent
   ],
   templateUrl: './accueil.component.html',
