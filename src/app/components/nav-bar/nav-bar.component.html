@@ -2,6 +2,10 @@
   <h1 (click)="goToHome()">HAIRLAB</h1>
   <div id="navButtom">
     <button  id="add_etab"><p>Ajoutez des établissements</p></button>
-    <button (click)="goToLogin()"><mat-icon>person_outline</mat-icon><p>Mon compte</p></button>
+    <button (click)="goToAccount()">
+      <mat-icon>person_outline</mat-icon>
+      <p *ngIf="user; else notConnected">{{ user.firstName }}</p>
+      <ng-template #notConnected><p>Mon compte</p></ng-template>
+    </button>
   </div>
 </div>

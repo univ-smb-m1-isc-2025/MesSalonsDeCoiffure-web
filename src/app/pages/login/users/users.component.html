@@ -1,26 +1,64 @@
 <div id="content">
-  <div id="cardMain">
-    <div class="cardLogin">
+  <div id="cardMainLogin" *ngIf="!isRegistering">
+    <div class="cardLogin" >
       <h2>Vous avez déjà utilisé HairLab ?</h2>
 
-      <form (ngSubmit)="addUser(newUser)">
+      <form (ngSubmit)="login()">
         <span>Email *</span>
-      <input type="email" [(ngModel)]="newUser.email" name="email" placeholder="Email" required />
-      <span>Mot de passe *</span>
-      <input type="password" [(ngModel)]="newUser.firstName" name="firstName" placeholder="Prénom" required />
-      <p id="pswforget">Mot de passe oublié ?</p>
-      <button type="submit">Se connecter</button>
+        <input type="email" [(ngModel)]="user.email" name="email" placeholder="Email" required />
+        <span>Mot de passe *</span>
+        <input type="password" [(ngModel)]="user.password" name="password" placeholder="Mot de passe" required />
+      <p class="pswforget">Mot de passe oublié ?</p>
+      <button class="buttonMain" type="submit">Se connecter</button>
     </form>
   </div>
-    <div id="separator">
+    <div class="separator">
       <hr class="solid">
     </div>
     <div class="cardLogin">
 
       <h2>Nouveau sur HairLab ?</h2>
-    <button id="ButCreateUser">Créer mon compte</button>
-</div>
+      <button class="buttonSecond" (click)="toggleForm()">Créer mon compte</button>
+
+
+    </div>
   </div>
+
+  <!-- INSCRIPTION -->
+  <div id="cardMainRegister" *ngIf="isRegistering">
+    <div class="cardLogin">
+      <h2>Nouveau sur HairLab ?</h2>
+
+      <form (ngSubmit)="register()">
+        <span>FirstName *</span>
+        <input type="text" [(ngModel)]="user.firstName" name="firstname" placeholder="John" required />
+        <span>Lastname *</span>
+        <input type="text" [(ngModel)]="user.lastName" name="lastname" placeholder="Petter" required />
+        <span>Email *</span>
+        <input type="email" [(ngModel)]="user.email" name="email" placeholder="JohnPet@mail.com" required />
+        <span>Mot de passe *</span>
+        <input type="password" [(ngModel)]="user.password" name="password" placeholder="Mot de passe" required />
+        <span>Vérification mot de passe *</span>
+        <input type="password" name="password" placeholder="Mot de passe" required />
+        <div id="checkCGU">
+          <input type="checkbox" id="scales" name="scales" />
+          <label class="pswforget" for="scales">J’accepte les CGU de hairLab</label>
+        </div>
+        <button class="buttonMain" type="submit">Créer mon compte</button>
+
+      </form>
+    </div>
+    <div class="separator">
+      <hr class="solid">
+    </div>
+    <div class="cardLogin">
+
+      <h2>Vous avez déjà utilisé HairLab ?</h2>
+      <button class="buttonSecond" (click)="toggleForm()">Se connecter</button>
+
+    </div>
+  </div>
+
   <img src="https://res.cloudinary.com/planity/image/upload/q_auto,f_auto/v1701340648/portail/illustrations/LOGIN/2023/2.jpg">
 </div>
 

@@ -2,40 +2,71 @@ import {Component, inject, OnInit} from '@angular/core';
 import {UsersService} from '../../../services/login/users.service';
 import {User} from '../../../models/user.model';
 import {FormsModule} from '@angular/forms';
-import {NgForOf} from '@angular/common';
+import {CommonModule, NgForOf} from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-users',
   imports: [
-    FormsModule,
+    FormsModule, CommonModule
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit {
 
-  userList: User[] = []
-  // pour le formulaire
-  newUser : User = {firstName:'', lastName:'',email:''}
+  isRegistering: boolean = false;
 
-  constructor(private userService : UsersService) { }
+  user: User = new User();
+
+  constructor(private userService : UsersService, private router: Router ) { }
 
   ngOnInit(): void {
-    this.fetchUsers()
   }
 
-  fetchUsers(){
-    this.userService.getUsers().subscribe(users => {
-      this.userList = users;
-    })
+  toggleForm() {
+    this.isRegistering = !this.isRegistering;
   }
 
-  addUser(user: User){
-    this.userService.ajoutUser(this.newUser).subscribe(data => {
-      this.userList.push(data);
-      // réinitialisation du formulaire
-      this.newUser = {firstName:'', lastName:'',email:''}
-    })
+  login() {
+
+    this.userService.loginUser(this.user).subscribe(
+      (res) => {
+        if(res){
+          console.log('res :', res);
+          this.openSnackBar('Connexion réussie !', 'Fermer');
+          window.location.href = '/';
+        } else {
+          this.openSnackBar('Échec de la connexion.', 'Fermer');
+        }
+      },
+      (err) => {
+        this.openSnackBar('Erreur lors de la connexion.', 'Fermer');
+      }
+    );
   }
+
+  register() {
+    console.log('Tentative de création avec :', this.user);
+    this.userService.registerUser(this.user).subscribe(
+      (res) => {
+        console.log('creation réussite')
+        this.openSnackBar('Enregistrement réussie !', 'Fermer');
+        this.router.navigate(['/']); // Redirige vers la page de connexion
+      },
+      (err) => {
+        console.error('Erreur de création du compte :', err);
+        this.openSnackBar('Échec de l enregistrement', 'Fermer');
+      }
+    )
+  }
+
+  private _snackBar = inject(MatSnackBar);
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
 
 }

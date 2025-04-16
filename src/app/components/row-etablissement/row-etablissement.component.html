@@ -1,7 +1,4 @@
 <div id="rowEtab">
-  <app-card-etablissement></app-card-etablissement>
-  <app-card-etablissement></app-card-etablissement>
-  <app-card-etablissement></app-card-etablissement>
-  <app-card-etablissement></app-card-etablissement>
+  <app-card-etablissement *ngFor="let etab of etablissements" [etablissement]="etab" />
 </div>
 

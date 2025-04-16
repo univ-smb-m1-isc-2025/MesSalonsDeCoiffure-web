@@ -3,9 +3,21 @@
   background: var(--background-bouton-grey_white);
   width: 100%;
   height: 100%;
+  align-items: center;
 }
 
-#cardMain{
+#cardMainLogin{
+  font-family: var(--primary-font);
+  display: flex;
+  flex-direction: column;
+  min-width: 50%;
+  width: 100%;
+  margin-top: var(--spacing-xxl);
+
+}
+
+
+#cardMainRegister{
   font-family: var(--primary-font);
   display: flex;
   flex-direction: column;
@@ -22,7 +34,7 @@
 }
 
 
-button{
+.buttonMain{
   border-radius: var(--border-radius-md);
   width: var(--size-button-xl);
   padding: var(--spacing-md) var(--spacing-md);
@@ -34,12 +46,12 @@ button{
   margin-top: var(--spacing-sm);
 }
 
-button:hover{
+.buttonMain:hover{
   background: var(--background-bouton-grey_white);
   color: var(--text-color-black);
 }
 
-#ButCreateUser{
+.buttonSecond{
   border-radius: var(--border-radius-md);
   width: var(--size-button-xl);
   padding: var(--spacing-md) var(--spacing-md);
@@ -50,7 +62,7 @@ button:hover{
   cursor: pointer;
 }
 
-#ButCreateUser:hover{
+.buttonSecond:hover{
   background: var(--background-bouton-grey_white);
   color: var(--text-color-black);
 }
@@ -64,16 +76,32 @@ span{
 input{
   border-radius: var(--border-radius-md);
   margin: var(--spacing-xs) 0;
-  padding: var(--spacing-sm) var(--spacing-sm);
-  border-color: var(--background-bouton-grey);
+  padding: 0 var(--spacing-sm);
+  border: 1px solid var(--background-bouton-grey);
+  box-shadow: #bbbbbb 0px 0px 2px;
+  height: 40px;
 }
 
 
-#pswforget {
+.pswforget {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   text-decoration: underline;
   cursor: pointer;
+}
+
+
+
+#checkCGU{
+  margin: var(--spacing-md) 0;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+#scales{
+  margin-right: var(--spacing-sm);
+  box-shadow: none;
 }
 
 form{
@@ -81,14 +109,15 @@ form{
   flex-direction: column;
 }
 
-@media (max-width: 768px) { /* Taille d'écran pour mobile */
+@media (max-width: 768px) {
   img {
     display: none;
   }
 }
 
 img{
-  max-width: 40%;
+  max-width: 50%;
+  height: 100%;
 }
 
 #cardLogin{

@@ -1,4 +1,7 @@
-<div class="card">
-  <img src="https://res.cloudinary.com/planity/image/upload/fl_strip_profile,f_auto,q_auto,fl_lossy,c_thumb,f_auto/v1561732120/portail/retina_Lyon.jpg" alt="">
-  <p>Coiffeur à Paris</p>
-</div>
+<a [routerLink]="['/commande', etablissement.codeEstablishment]">
+  <div class="card">
+    <img src="https://res.cloudinary.com/planity/image/upload/fl_strip_profile,f_auto,q_auto,fl_lossy,c_thumb,f_auto/v1561732120/portail/retina_Lyon.jpg" alt="">
+    <p>{{ etablissement.name }} à {{ etablissement.ville }}</p>
+  </div>
+</a>
+
