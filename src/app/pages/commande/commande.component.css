@@ -28,6 +28,18 @@ form{
   width: 50%;
 }
 
+#divValidation{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: var(--spacing-xl);
+}
+
+.event-coiffeure{
+  color: var(--text-color-white);
+}
+
 #cardChoixPresta{
   box-shadow: #bbbbbb 0px 0px 4px;
   border-radius: var(--border-radius-md);
@@ -108,8 +120,8 @@ form{
   margin-top: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  flex-direction: column;
 }
 
 #cardChoixDate input{
@@ -117,8 +129,7 @@ form{
   border-radius: var(--border-radius-md);
   font-family: var(--primary-font);
   width: 40%;
-
-
+  font-size: var(--text-lg);
 }
 #validation-btn{
   border-radius: var(--border-radius-md);
@@ -129,6 +140,23 @@ form{
   font-weight: var(--font-regular);
   cursor: pointer;
   width: 40%;
+}
+
+#divButton{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#divButton button{
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm) var(--spacing-sm);
+  background: var(--background-bouton-black);
+  color: var(--text-color-white);
+  font-size: var(--text-md);
+  font-weight: var(--font-semi-bold);
+  cursor: pointer;
+  margin-bottom: var(--spacing-sm);
 }
 
 @media (max-width: 768px) {

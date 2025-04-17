@@ -25,7 +25,6 @@ export class UsersService {
     );
   }
 
-
   registerUser(user: User): Observable<User> {
     return this.http.post<User>(this.BASE_URL + '/usersHL/addUser', user).pipe(
       tap((registeredUser) => {

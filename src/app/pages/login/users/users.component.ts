@@ -51,9 +51,10 @@ export class UsersComponent implements OnInit {
     console.log('Tentative de création avec :', this.user);
     this.userService.registerUser(this.user).subscribe(
       (res) => {
-        console.log('creation réussite')
+        console.log('creation réussite', res)
         this.openSnackBar('Enregistrement réussie !', 'Fermer');
-        this.router.navigate(['/']); // Redirige vers la page de connexion
+        window.location.href = '/';
+
       },
       (err) => {
         console.error('Erreur de création du compte :', err);

@@ -26,8 +26,8 @@ export class NavBarComponent {
 
   goToAccount() {
     if (this.user) {
-      this.usersService.logout();
-      this.router.navigate(['/login']);
+      //this.usersService.logout();
+      this.router.navigate(['/profil']);
     } else {
       this.router.navigate(['/login']);
     }
