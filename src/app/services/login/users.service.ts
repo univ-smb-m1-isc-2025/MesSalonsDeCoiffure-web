@@ -45,4 +45,9 @@ export class UsersService {
   logout() {
     localStorage.removeItem(this.localStorageKey);
   }
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.BASE_URL}/usersHL/users`);
+  }
+
 }

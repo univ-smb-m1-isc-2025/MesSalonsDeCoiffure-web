@@ -1,7 +1,9 @@
 <div id="nav">
   <h1 (click)="goToHome()">HAIRLAB</h1>
   <div id="navButtom">
-    <button  id="add_etab"><p>Ajoutez des établissements</p></button>
+    <button *ngIf="user?.role === 'Admin'" (click)="goToAddEtab()" id="add_etab">
+      <p>Ajoutez des établissements</p>
+    </button>
     <button (click)="goToAccount()">
       <mat-icon>person_outline</mat-icon>
       <p *ngIf="user; else notConnected">{{ user.firstName }}</p>

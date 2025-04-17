@@ -6,5 +6,6 @@ export class Establishment {
   urlImage: string = '';
   codeEstablishment : string = '';
   ville: string = '';
+  id: number = -1;
 }
 

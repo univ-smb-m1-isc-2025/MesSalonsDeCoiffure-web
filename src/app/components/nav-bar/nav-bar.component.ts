@@ -36,4 +36,8 @@ export class NavBarComponent {
   goToHome() {
     this.router.navigate(['/']);
   }
+
+  goToAddEtab() {
+    this.router.navigate(['/addEtab']);
+  }
 }

@@ -1,5 +1,9 @@
 <header>
-  <h1>Réserver en ligne un RDV avec un coiffeur </h1>
+  <h1 *ngIf="user?.role === 'Admin'; else notAdmin">Bonjour, voici vos salons.</h1>
+
+  <ng-template #notAdmin>
+    <h1>Réserver en ligne un RDV avec un coiffeur</h1>
+  </ng-template>
     <form id="rechercheDIV">
       <input type="text" name="city" placeholder="Où (Paris..)" required />
       <button type="submit">Rechercher</button>

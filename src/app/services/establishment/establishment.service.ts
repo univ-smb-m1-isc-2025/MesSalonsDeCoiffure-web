@@ -17,4 +17,8 @@ export class EstablishmentService {
   getEstablishment(){
     return this.http.get<Establishment[]>(this.BASE_URL + '/estabHL/estabs');
   }
+
+  addEstablishment(estab: Establishment): Observable<Establishment> {
+    return this.http.post<Establishment>(this.BASE_URL + '/estabHL/addEstab', estab);
+  }
 }

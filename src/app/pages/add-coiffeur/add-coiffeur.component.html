@@ -1,0 +1,36 @@
+<div class="profile-container">
+  <div class="content">
+    <div id="headerText">
+      <h2>Ajouter un collaborateur</h2>
+      <p>Recherchez un utilisateur à ajouter à votre établissement</p>
+    </div>
+
+      <input
+        type="text"
+        placeholder="Rechercher un utilisateur"
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+        class="search-bar"
+      />
+
+    <!-- Résultats de recherche -->
+    <div *ngIf="filteredUsers.length > 0" class="results-list">
+      <div *ngFor="let user of filteredUsers" class="user-result">
+        <span>{{ user.firstName }} {{ user.lastName }}</span>
+        <button (click)="addCollaborator(user)">Ajouter</button>
+      </div>
+    </div>
+
+
+    <!-- Liste des collaborateurs -->
+    <h3>Collaborateurs existants</h3>
+    <ul class="collab-list">
+      <li *ngFor="let collaborator of collaborators" class="collab-item">
+        <mat-icon>account_box</mat-icon>
+        <span>{{ collaborator.user.firstName }} {{ collaborator.user.lastName }}</span>
+      </li>
+    </ul>
+
+
+  </div>
+</div>

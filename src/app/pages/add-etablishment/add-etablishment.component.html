@@ -1,0 +1,35 @@
+<div id="content">
+  <!-- CRÉATION ÉTABLISSEMENT -->
+  <div id="cardMainRegister">
+    <div class="cardLogin">
+      <h2>Créer un établissement</h2>
+
+      <form (ngSubmit)="createEstablishment()">
+        <span>Nom de l’établissement *</span>
+        <input type="text" [(ngModel)]="establishment.name" name="name" placeholder="Salon HairLab" required />
+
+        <span>Adresse *</span>
+        <input type="text" [(ngModel)]="establishment.address" name="address" placeholder="123 rue des Coiffeurs" required />
+
+        <span>Ville *</span>
+        <input type="text" [(ngModel)]="establishment.ville" name="ville" placeholder="Lyon" required />
+
+        <span>Téléphone *</span>
+        <input type="tel" [(ngModel)]="establishment.phone" name="phone" placeholder="06 12 34 56 78" required />
+
+        <span>Email *</span>
+        <input type="email" [(ngModel)]="establishment.email" name="email" placeholder="contact@salon.com" required />
+
+        <span>Image (URL)</span>
+        <input type="text" [(ngModel)]="establishment.urlImage" name="urlImage" placeholder="https://image.jpg" />
+
+        <span>Code établissement *</span>
+        <input type="text" [(ngModel)]="establishment.codeEstablishment" name="codeEstablishment" placeholder="HL1234" required />
+
+        <button class="buttonMain" type="submit">Créer l’établissement</button>
+      </form>
+    </div>
+  </div>
+
+  <img src="https://res.cloudinary.com/planity/image/upload/q_auto,f_auto/v1701340648/portail/illustrations/LOGIN/2023/2.jpg">
+</div>
