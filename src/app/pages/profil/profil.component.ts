@@ -28,11 +28,21 @@ export class ProfilComponent {
     if (currentUser) {
       this.user = { ...currentUser };
       this.editedUser = { ...currentUser };
-      this.fetchReservations(currentUser);
+      this.fetchReservations(currentUser.id);
     }
   }
 
-  fetchReservations(user: User) {
+  fetchReservations(clientId: number) {
+    this.usersService.getReservationsByClientId(clientId).subscribe(
+
+      (reservations) => {
+        console.log(clientId,reservations)
+        this.reservations = reservations;
+      },
+      (error) => {
+        console.error('Error fetching reservations', error);
+      }
+    );
   }
 
   onInputChange() {

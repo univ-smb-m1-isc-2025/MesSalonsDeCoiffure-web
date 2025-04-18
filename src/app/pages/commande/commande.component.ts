@@ -9,6 +9,8 @@ import {CollaboratorService} from '../../services/collaborator/collaborator.serv
 import {Collaborator} from '../../models/collaborator';
 import {NewReservation} from '../../models/new-reservation';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {User} from '../../models/user.model';
+import {UsersService} from '../../services/login/users.service';
 
 
 @Component({
@@ -21,7 +23,9 @@ export class CommandeComponent {
   constructor(private route: ActivatedRoute,
               private reservationService: ReservationService,
               private collaboratorService: CollaboratorService,
-              private router: Router) {
+              private router: Router,
+              private usersService: UsersService,
+              ) {
   }
 
   selectedPrestation = {
@@ -29,18 +33,12 @@ export class CommandeComponent {
     duration: 30,
     price: 0
   };
-
+  user: User | null = null;
   collaborators: Collaborator[] = [];
   availableHours: string[] = [];
   events: any[] = [];
   selectedCollaborator: number = 1;
   private _snackBar = inject(MatSnackBar);
-
-
-
-
-
-
   establishmentId!: number;
 
   ngOnInit(): void {
@@ -50,6 +48,7 @@ export class CommandeComponent {
         this.establishmentId = +id;
       }
     });
+    this.user = this.usersService.getCurrentUser();
     this.collaboratorService.getCollaboratorsByEstablishment(this.establishmentId)
       .subscribe({
         next: (data) => {
@@ -73,8 +72,6 @@ export class CommandeComponent {
     onTimeRangeSelected: (args) => this.timeRangeSelected(args)
   };
 
-
-
   prevWeek() {
     const dpDate = new DayPilot.Date(this.config.startDate);
     this.config = {
@@ -91,7 +88,6 @@ export class CommandeComponent {
     };
   }
 
-
   // -------- //
 
   prestations = [
@@ -103,8 +99,6 @@ export class CommandeComponent {
   ];
 
   selectedHour: string = '';
-
-
 
   // Gérer l'état d'affichage des boutons
   selectedPrestationName: string | null = null;
@@ -171,7 +165,7 @@ export class CommandeComponent {
         console.log("collaboratorId", collaboratorId,reservations);
         this.events = reservations.map(res => ({
           id: res.id,
-          text: `${res.description} - Collaborateur ${res.collaborator.user.firstName}`, // à adapter si tu as le nom
+          text: `${res.description} - Client ${res.client.firstName}`, // à adapter si tu as le nom
           start: new DayPilot.Date(new Date(res.dateDebut)),
           end: new DayPilot.Date(new Date(res.dateFin)),
           backColor: "#202020",
@@ -200,19 +194,14 @@ export class CommandeComponent {
     const timestampFin = dateFin.getTime();
 
     const reservation: NewReservation = {
-      clientId: 1,
+      clientId: this.user?.id || 1,
       collaboratorId: this.selectedCollaborator,
-      establishmentId: 1,
+      establishmentId: this.establishmentId,
       dateDebut: timestampDebut, // Utilisation du timestamp
       dateFin: timestampFin,     // Utilisation du timestamp
       description: this.selectedPrestation.description,
       price: this.selectedPrestation.price
     };
-
-    this.reservationService.createReservation(reservation).subscribe({
-      next: (res) => alert('Réservation confirmée !'),
-      error: (err) => console.error('Erreur lors de la réservation :', err)
-    });
 
     this.reservationService.createReservation(reservation).subscribe({
       next: (res) => {

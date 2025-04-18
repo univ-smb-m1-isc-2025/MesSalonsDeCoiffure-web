@@ -2,6 +2,7 @@ import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../../models/user.model';
 import {map, Observable, tap} from 'rxjs';
+import {Reservation} from '../../models/reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,10 @@ export class UsersService {
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.BASE_URL}/usersHL/users`);
+  }
+
+  getReservationsByClientId(clientId: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`${this.BASE_URL}/appointmentsHL/byClient?clientId=${clientId}`);
   }
 
 }

@@ -19,7 +19,8 @@ export class ReservationService {
   }
 
   getReservationsByCollaborator(collaboratorId: number): Observable<Reservation[]> {
-    const url = `${this.BASE_URL}/appointmentsHL/byCollab?collaboratorId=${collaboratorId}`;
+    console.log(`${this.BASE_URL}/appointmentsHL/byUserCollab?userId=${collaboratorId}`)
+    const url = `${this.BASE_URL}/appointmentsHL/byUserCollab?userId=${collaboratorId}`;
     return this.http.get<Reservation[]>(url);
   }
 
