@@ -22,13 +22,13 @@
 
     <h2>Avec qui ?</h2>
     <div id="cardChoixCoiffeur">
-      <div class="choixCoiffeur" *ngFor="let coiffeur of coiffeurs">
-        <label [for]="coiffeur.name">{{ coiffeur.name }}</label>
+      <div class="choixCoiffeur" *ngFor="let coiffeur of collaborators">
+        <label [for]="coiffeur.user.id">{{ coiffeur.user.firstName }}</label>
         <input
           type="radio"
-          [id]="coiffeur.name"
+          [id]="coiffeur.user.id"
           name="coiffeur"
-          [value]="coiffeur.id"
+          [value]="coiffeur.user.id"
           [(ngModel)]="selectedCollaborator"
         />
       </div>

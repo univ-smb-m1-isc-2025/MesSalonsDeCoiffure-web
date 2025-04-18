@@ -5,6 +5,8 @@ import {ReservationService} from '../../services/reservation/reservation.service
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {DayPilot, DayPilotModule} from "@daypilot/daypilot-lite-angular";
+import {CollaboratorService} from '../../services/collaborator/collaborator.service';
+import {Collaborator} from '../../models/collaborator';
 
 
 @Component({
@@ -14,17 +16,40 @@ import {DayPilot, DayPilotModule} from "@daypilot/daypilot-lite-angular";
   styleUrl: './commande.component.css'
 })
 export class CommandeComponent {
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService) {
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      console.log('ID de la commande :', id);
-    });
+  constructor(private route: ActivatedRoute,
+              private reservationService: ReservationService,
+              private collaboratorService: CollaboratorService) {
   }
+
   selectedPrestation = {
     description: '',
     duration: 30,
     price: 0
   };
+
+  collaborators: Collaborator[] = [];
+
+
+  establishmentId!: number;
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.establishmentId = +id;
+      }
+    });
+    this.collaboratorService.getCollaboratorsByEstablishment(this.establishmentId)
+      .subscribe({
+        next: (data) => {
+          this.collaborators = data;
+          console.log('Coiffeurs récupérés :', this.collaborators);
+        },
+        error: (err) => {
+          console.error('Erreur lors du chargement des coiffeurs :', err);
+        }
+      });
+  }
 
   selectedCollaborator: number = 1; // à adapter selon le radio sélectionné
   selectedDate: string = '';
@@ -95,15 +120,6 @@ export class CommandeComponent {
     { name: 'Cheveux court', duration: 25, price: 18 },
     { name: 'Cheveux Mi-Longs', duration: 35, price: 22 },
     { name: 'Cheveux longs', duration: 45, price: 27 }
-  ];
-
-  coiffeurs = [
-    { name: 'Léa', id: 1 },
-    { name: 'Camille', id: 2 },
-    { name: 'Inès', id: 3 },
-    { name: 'Lucas', id: 4 },
-    { name: 'Nathan', id: 5 },
-    { name: 'Alex', id: 6 }
   ];
 
   selectedHour: string = '';

@@ -32,6 +32,7 @@ export class AddCoiffeurComponent {
 
   ngOnInit(): void {
     // Récupère l'id depuis l'URL
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
