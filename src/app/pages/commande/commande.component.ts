@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Reservation} from '../../models/reservation';
 import {ReservationService} from '../../services/reservation/reservation.service';
 import {FormsModule} from '@angular/forms';
@@ -7,6 +7,8 @@ import {CommonModule} from '@angular/common';
 import {DayPilot, DayPilotModule} from "@daypilot/daypilot-lite-angular";
 import {CollaboratorService} from '../../services/collaborator/collaborator.service';
 import {Collaborator} from '../../models/collaborator';
+import {NewReservation} from '../../models/new-reservation';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,7 +20,8 @@ import {Collaborator} from '../../models/collaborator';
 export class CommandeComponent {
   constructor(private route: ActivatedRoute,
               private reservationService: ReservationService,
-              private collaboratorService: CollaboratorService) {
+              private collaboratorService: CollaboratorService,
+              private router: Router) {
   }
 
   selectedPrestation = {
@@ -28,6 +31,14 @@ export class CommandeComponent {
   };
 
   collaborators: Collaborator[] = [];
+  availableHours: string[] = [];
+  events: any[] = [];
+  selectedCollaborator: number = 1;
+  private _snackBar = inject(MatSnackBar);
+
+
+
+
 
 
   establishmentId!: number;
@@ -49,9 +60,9 @@ export class CommandeComponent {
           console.error('Erreur lors du chargement des coiffeurs :', err);
         }
       });
+    this.onCollaboratorChange()
   }
 
-  selectedCollaborator: number = 1; // à adapter selon le radio sélectionné
   selectedDate: string = '';
 
   // CALENDAR //
@@ -80,37 +91,6 @@ export class CommandeComponent {
     };
   }
 
-  events: any[] = [
-    {
-      id: "1",
-      text: "Barbe - Léa",
-      start: DayPilot.Date.today().addHours(9),
-      end: DayPilot.Date.today().addHours(9.5),
-      backColor: "#202020",
-      fontColor: "#f8f8f8",
-
-    },
-    {
-      id: "2",
-      text: "Cheveux longs - Nathan",
-      start: DayPilot.Date.today().addHours(13),
-      end: DayPilot.Date.today().addHours(14),
-      backColor: "#202020",
-      fontColor: "#f8f8f8",
-    }
-  ];
-
-
-  timeRangeSelected($event: any) {
-    const start = $event.start; // objet DayPilot.Date
-    const end = $event.end;
-
-    // Tu peux stocker directement en ISO ou formater comme tu veux
-    this.selectedDate = start.toString("yyyy-MM-ddTHH:mm:ss");
-    console.log("Heure sélectionnée :", this.selectedDate);
-  }
-
-
 
   // -------- //
 
@@ -123,10 +103,7 @@ export class CommandeComponent {
   ];
 
   selectedHour: string = '';
-  availableHours: string[] = [
-    '09:00', '09:30', '10:00', '10:30', '11:00',
-    '13:00', '13:30', '14:00', '14:30', '15:00', '15:30'
-  ];
+
 
 
   // Gérer l'état d'affichage des boutons
@@ -143,6 +120,71 @@ export class CommandeComponent {
     }
   }
 
+  timeRangeSelected($event: any) {
+    const start = $event.start;
+    this.selectedDate = start.toString("yyyy-MM-ddTHH:mm:ss");
+    console.log("Heure sélectionnée :", this.selectedDate);
+    this.updateAvailableHours();
+  }
+
+
+  updateAvailableHours() {
+    console.log("update", this.availableHours);
+    if (!this.selectedCollaborator || !this.selectedDate) return;
+
+    const selectedDateOnly = new Date(this.selectedDate).toISOString().split('T')[0]; // format YYYY-MM-DD
+
+    this.reservationService.getReservationsByCollaborator(this.selectedCollaborator).subscribe({
+      next: (reservations) => {
+        const takenSlots: string[] = reservations
+          .filter(res => {
+            const resDate = new Date(res.dateDebut).toISOString().split('T')[0];
+            return resDate === selectedDateOnly;
+          })
+          .map(res => {
+            const start = new Date(res.dateDebut);
+            return start.getHours().toString().padStart(2, '0') + ':' + (start.getMinutes() === 0 ? '00' : '30');
+          });
+
+        // Créneaux possibles (à adapter selon ton salon)
+        const possibleHours = [
+          '09:00', '09:30', '10:00', '10:30', '11:00',
+          '13:00', '13:30', '14:00', '14:30', '15:00', '15:30'
+        ];
+
+        this.availableHours = possibleHours.filter(hour => !takenSlots.includes(hour));
+      },
+      error: (err) => console.error('Erreur lors du chargement des réservations :', err)
+    });
+  }
+
+  onCollaboratorChange() {
+    console.log('Collaborateur sélectionné :', this.selectedCollaborator);
+    this.loadEventsForCollaborator(this.selectedCollaborator);
+    this.updateAvailableHours(); // au cas où tu veux mettre à jour aussi les créneaux
+  }
+
+
+  loadEventsForCollaborator(collaboratorId: number) {
+    this.reservationService.getReservationsByCollaborator(collaboratorId).subscribe({
+      next: (reservations) => {
+        console.log("collaboratorId", collaboratorId,reservations);
+        this.events = reservations.map(res => ({
+          id: res.id,
+          text: `${res.description} - Collaborateur ${res.collaborator.user.firstName}`, // à adapter si tu as le nom
+          start: new DayPilot.Date(new Date(res.dateDebut)),
+          end: new DayPilot.Date(new Date(res.dateFin)),
+          backColor: "#202020",
+          fontColor: "#f8f8f8"
+        }));
+      },
+      error: (err) => console.error("Erreur lors du chargement des événements :", err)
+    });
+  }
+
+
+
+
   onSubmit() {
     // Vérifier si tous les champs sont remplis
     if (!this.selectedPrestation.description || !this.selectedDate || !this.selectedCollaborator) {
@@ -157,7 +199,7 @@ export class CommandeComponent {
     const timestampDebut = dateDebut.getTime();
     const timestampFin = dateFin.getTime();
 
-    const reservation: Reservation = {
+    const reservation: NewReservation = {
       clientId: 1,
       collaboratorId: this.selectedCollaborator,
       establishmentId: 1,
@@ -171,6 +213,19 @@ export class CommandeComponent {
       next: (res) => alert('Réservation confirmée !'),
       error: (err) => console.error('Erreur lors de la réservation :', err)
     });
+
+    this.reservationService.createReservation(reservation).subscribe({
+      next: (res) => {
+        this.openSnackBar('Réservation confirmée !', 'Fermer');
+
+        this.router.navigate(['/profil']);
+      },
+      error: (err) => console.error('Erreur lors de la réservation :', err)
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
 }

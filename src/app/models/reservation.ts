@@ -1,9 +1,14 @@
+import {User} from './user.model';
+import {Collaborator} from './collaborator';
+import {Establishment} from './establishment.model';
+
 export interface Reservation {
-  clientId: number;
-  collaboratorId: number;
-  establishmentId: number;
-  dateDebut: number; // timestamp JAVA
-  dateFin: number;  // timestamp JAVA
+  id: number;
+  dateDebut: number;
+  dateFin: number;
   description: string;
   price: number;
+  client: User;
+  collaborator: Collaborator;
+  establishment: Establishment;
 }
