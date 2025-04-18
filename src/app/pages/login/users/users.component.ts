@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {CommonModule, NgForOf} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
+import {NewUser} from '../../../models/new-user';
 
 @Component({
   selector: 'app-users',
@@ -19,6 +20,7 @@ export class UsersComponent implements OnInit {
   isRegistering: boolean = false;
 
   user: User = new User();
+  newUser: NewUser = new NewUser();
 
   constructor(private userService : UsersService, private router: Router ) { }
 
@@ -48,8 +50,8 @@ export class UsersComponent implements OnInit {
   }
 
   register() {
-    console.log('Tentative de création avec :', this.user);
-    this.userService.registerUser(this.user).subscribe(
+    console.log('Tentative de création avec :', this.newUser);
+    this.userService.registerUser(this.newUser).subscribe(
       (res) => {
         console.log('creation réussite', res)
         this.openSnackBar('Enregistrement réussie !', 'Fermer');

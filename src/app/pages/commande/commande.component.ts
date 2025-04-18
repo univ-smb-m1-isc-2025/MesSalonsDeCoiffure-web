@@ -37,7 +37,7 @@ export class CommandeComponent {
   collaborators: Collaborator[] = [];
   availableHours: string[] = [];
   events: any[] = [];
-  selectedCollaborator: number = 1;
+  selectedCollaborator: Collaborator | null = null;
   private _snackBar = inject(MatSnackBar);
   establishmentId!: number;
 
@@ -128,7 +128,7 @@ export class CommandeComponent {
 
     const selectedDateOnly = new Date(this.selectedDate).toISOString().split('T')[0]; // format YYYY-MM-DD
 
-    this.reservationService.getReservationsByCollaborator(this.selectedCollaborator).subscribe({
+    this.reservationService.getReservationsByCollaborator(this.selectedCollaborator.user.id).subscribe({
       next: (reservations) => {
         const takenSlots: string[] = reservations
           .filter(res => {
@@ -153,9 +153,11 @@ export class CommandeComponent {
   }
 
   onCollaboratorChange() {
-    console.log('Collaborateur sélectionné :', this.selectedCollaborator);
-    this.loadEventsForCollaborator(this.selectedCollaborator);
-    this.updateAvailableHours(); // au cas où tu veux mettre à jour aussi les créneaux
+    if(this.selectedCollaborator != null){
+      console.log('Collaborateur sélectionné :', this.selectedCollaborator);
+      this.loadEventsForCollaborator(this.selectedCollaborator.user.id);
+      this.updateAvailableHours();
+    }
   }
 
 
@@ -195,7 +197,7 @@ export class CommandeComponent {
 
     const reservation: NewReservation = {
       clientId: this.user?.id || 1,
-      collaboratorId: this.selectedCollaborator,
+      collaboratorId: this.selectedCollaborator.id,
       establishmentId: this.establishmentId,
       dateDebut: timestampDebut, // Utilisation du timestamp
       dateFin: timestampFin,     // Utilisation du timestamp

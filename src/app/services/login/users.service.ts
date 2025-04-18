@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {User} from '../../models/user.model';
 import {map, Observable, tap} from 'rxjs';
 import {Reservation} from '../../models/reservation';
+import {NewUser} from '../../models/new-user';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class UsersService {
     );
   }
 
-  registerUser(user: User): Observable<User> {
+  registerUser(user: NewUser): Observable<User> {
     return this.http.post<User>(this.BASE_URL + '/usersHL/addUser', user).pipe(
       tap((registeredUser) => {
         this.saveUserToLocalStorage(registeredUser);

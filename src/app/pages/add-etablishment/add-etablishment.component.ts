@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
+import {NewEtablishment} from '../../models/new-etablishment';
 
 @Component({
   selector: 'app-add-etablishment',
@@ -13,13 +14,14 @@ import {Router} from '@angular/router';
   styleUrl: './add-etablishment.component.css'
 })
 export class AddEtablishmentComponent {
-  establishment: Establishment = new Establishment();
+  establishment: NewEtablishment = new NewEtablishment();
   private _snackBar = inject(MatSnackBar);
 
 
   constructor(private establishmentService: EstablishmentService, private router: Router) {}
 
   createEstablishment() {
+    console.log(this.establishment)
     this.establishmentService.addEstablishment(this.establishment).subscribe({
       next: (response) => {
         console.log('Établissement créé avec succès :', response);
